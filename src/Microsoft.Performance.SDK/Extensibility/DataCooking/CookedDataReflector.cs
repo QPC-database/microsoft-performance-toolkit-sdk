@@ -73,5 +73,47 @@ namespace Microsoft.Performance.SDK.Extensibility.DataCooking
 
             return property.GetValue(this);
         }
+
+        /// <inheritdoc />
+        public bool TryQueryOutput<T>(DataOutputPath identifier, out T result)
+        {
+            bool success = TryQueryOutput(identifier, out var baseResult);
+            if(success)
+            {
+                try
+                {
+                    result = (T)baseResult;
+                    return true;
+                }
+                catch(Exception)
+                {
+                }
+            }
+
+            result = default;
+            return false;
+        }
+
+        /// <inheritdoc />
+        public bool TryQueryOutput(DataOutputPath identifier, out object result)
+        {
+            if (!this.publicDataProperties.TryGetValue(identifier, out PropertyInfo property))
+            {
+                result = default;
+                return false;
+            }
+
+            try
+            { 
+                result = property.GetValue(this);
+                return true;
+            }
+            catch(Exception)
+            {
+            }
+
+            result = default;
+            return false;
+        }
     }
 }

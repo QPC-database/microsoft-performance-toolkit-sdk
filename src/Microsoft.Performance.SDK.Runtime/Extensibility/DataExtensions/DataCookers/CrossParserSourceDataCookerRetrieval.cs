@@ -62,5 +62,39 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility.DataExtensions.DataCoo
 
             return processor.QueryOutput(dataOutputPath);
         }
+
+        /// <inheritdoc />
+        public bool TryQueryOutput(DataOutputPath dataOutputPath, out object result)
+        {
+            if (!this.processorsByParser.TryGetValue(dataOutputPath.SourceParserId, out var processor))
+            {
+                result = default;
+                return false;
+            }
+
+            return processor.TryQueryOutput(dataOutputPath, out result);
+        }
+
+        /// <inheritdoc />
+        public bool TryQueryOutput<TOutput>(DataOutputPath dataOutputPath, out TOutput result)
+        {
+            if (!this.processorsByParser.TryGetValue(dataOutputPath.SourceParserId, out var processor))
+            {
+                result = default;
+                return false;
+            }
+
+            try
+            { 
+                result = processor.QueryOutput<TOutput>(dataOutputPath);
+                return true;
+            }
+            catch(Exception)
+            {
+            }
+
+            result = default;
+            return false;
+        }
     }
 }
