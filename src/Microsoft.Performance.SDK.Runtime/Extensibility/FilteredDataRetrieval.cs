@@ -166,7 +166,7 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility
         private bool TryValidateCompositeDataCooker(DataOutputPath dataOutputPath, out IDataCooker compositeCooker)
         {
             try
-            { 
+            {
                 var cookerPath = dataOutputPath.CookerPath;
 
                 if (!this.extensionDependencies.RequiredCompositeDataCookerPaths.Contains(cookerPath))
@@ -193,7 +193,7 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility
 
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
             }
 
@@ -209,11 +209,11 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility
 
         private bool TryQuerySourceOutput<T>(DataOutputPath dataOutputPath, out T result)
         {
-            if(this.TryValidateSourceDataCooker(dataOutputPath))
+            if (this.TryValidateSourceDataCooker(dataOutputPath))
             {
                 return this.dataRetrievalFactory.CookedSourceData.TryQueryOutput<T>(dataOutputPath, out result);
             }
-            
+
             result = default;
             return false;
         }
@@ -226,8 +226,8 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility
 
         private bool TryQueryCompositeOutput<T>(DataOutputPath dataOutputPath, out T result)
         {
-            if(this.TryValidateCompositeDataCooker(dataOutputPath, out var compositeCooker))
-            { 
+            if (this.TryValidateCompositeDataCooker(dataOutputPath, out var compositeCooker))
+            {
                 return compositeCooker.TryQueryOutput<T>(dataOutputPath, out result);
             }
 
@@ -249,7 +249,7 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility
 
         private bool TryQuerySourceOutput(DataOutputPath dataOutputPath, out object result)
         {
-            if(this.TryValidateSourceDataCooker(dataOutputPath))
+            if (this.TryValidateSourceDataCooker(dataOutputPath))
             {
                 return this.dataRetrievalFactory.CookedSourceData.TryQueryOutput(dataOutputPath, out result);
             }
@@ -260,8 +260,8 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility
 
         private bool TryQueryCompositeOutput(DataOutputPath dataOutputPath, out object result)
         {
-            if(this.TryValidateCompositeDataCooker(dataOutputPath, out var compositeCooker))
-            { 
+            if (this.TryValidateCompositeDataCooker(dataOutputPath, out var compositeCooker))
+            {
                 return compositeCooker.TryQueryOutput(dataOutputPath, out result);
             }
 

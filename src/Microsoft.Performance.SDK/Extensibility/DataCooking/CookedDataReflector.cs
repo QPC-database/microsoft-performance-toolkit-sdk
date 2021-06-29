@@ -17,7 +17,7 @@ namespace Microsoft.Performance.SDK.Extensibility.DataCooking
     public abstract class CookedDataReflector
         : ICookedDataSet
     {
-        private readonly Dictionary<DataOutputPath, PropertyInfo> publicDataProperties 
+        private readonly Dictionary<DataOutputPath, PropertyInfo> publicDataProperties
             = new Dictionary<DataOutputPath, PropertyInfo>();
 
         /// <summary>
@@ -78,14 +78,14 @@ namespace Microsoft.Performance.SDK.Extensibility.DataCooking
         public bool TryQueryOutput<T>(DataOutputPath identifier, out T result)
         {
             bool success = TryQueryOutput(identifier, out var baseResult);
-            if(success)
+            if (success)
             {
                 try
                 {
                     result = (T)baseResult;
                     return true;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                 }
             }
@@ -104,11 +104,11 @@ namespace Microsoft.Performance.SDK.Extensibility.DataCooking
             }
 
             try
-            { 
+            {
                 result = property.GetValue(this);
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
             }
 

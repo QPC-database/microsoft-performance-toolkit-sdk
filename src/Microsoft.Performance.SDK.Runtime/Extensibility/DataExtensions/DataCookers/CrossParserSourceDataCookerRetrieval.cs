@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+using System;
+using System.Collections.Generic;
 using Microsoft.Performance.SDK.Extensibility;
 using Microsoft.Performance.SDK.Extensibility.DataCooking;
 using Microsoft.Performance.SDK.Processing;
-using System;
-using System.Collections.Generic;
 
 namespace Microsoft.Performance.SDK.Runtime.Extensibility.DataExtensions.DataCookers
 {
@@ -16,7 +16,7 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility.DataExtensions.DataCoo
     internal class CrossParserSourceDataCookerRetrieval
         : ICookedDataRetrieval
     {
-        private readonly IDictionary<string, ICustomDataProcessorWithSourceParser> processorsByParser 
+        private readonly IDictionary<string, ICustomDataProcessorWithSourceParser> processorsByParser
             = new Dictionary<string, ICustomDataProcessorWithSourceParser>(StringComparer.Ordinal);
 
         internal CrossParserSourceDataCookerRetrieval(
@@ -85,11 +85,11 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility.DataExtensions.DataCoo
             }
 
             try
-            { 
+            {
                 result = processor.QueryOutput<TOutput>(dataOutputPath);
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
             }
 

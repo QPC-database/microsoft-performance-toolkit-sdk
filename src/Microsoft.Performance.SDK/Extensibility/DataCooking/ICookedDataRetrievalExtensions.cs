@@ -28,8 +28,8 @@ namespace Microsoft.Performance.SDK.Extensibility.DataCooking
         ///     <paramref name="cookerPath"/>.
         /// </exception>
         public static object QueryOutput(
-            this ICookedDataRetrieval retrieval, 
-            DataCookerPath cookerPath, 
+            this ICookedDataRetrieval retrieval,
+            DataCookerPath cookerPath,
             string outputId)
         {
             return retrieval.QueryOutput(new DataOutputPath(cookerPath, outputId));
@@ -54,8 +54,8 @@ namespace Microsoft.Performance.SDK.Extensibility.DataCooking
         ///     true if the value was successfully retrieved; false otherwise
         /// </returns>
         public static bool TryQueryOutput(
-            this ICookedDataRetrieval retrieval, 
-            DataCookerPath cookerPath, 
+            this ICookedDataRetrieval retrieval,
+            DataCookerPath cookerPath,
             string outputId,
             out object result)
         {
@@ -90,8 +90,8 @@ namespace Microsoft.Performance.SDK.Extensibility.DataCooking
         ///     The value at <paramref name="identifier"/> cannot be cast to <typeparamref name="T"/>.
         /// </exception>
         public static T QueryOutput<T>(
-            this ICookedDataRetrieval retrieval, 
-            DataCookerPath cookerPath, 
+            this ICookedDataRetrieval retrieval,
+            DataCookerPath cookerPath,
             string outputId)
         {
             return retrieval.QueryOutput<T>(new DataOutputPath(cookerPath, outputId));
@@ -121,8 +121,8 @@ namespace Microsoft.Performance.SDK.Extensibility.DataCooking
         ///     true if the value was successfully retrieved; false otherwise
         /// </returns>
         public static bool TryQueryOutput<T>(
-            this ICookedDataRetrieval retrieval, 
-            DataCookerPath cookerPath, 
+            this ICookedDataRetrieval retrieval,
+            DataCookerPath cookerPath,
             string outputId,
             out T result)
         {

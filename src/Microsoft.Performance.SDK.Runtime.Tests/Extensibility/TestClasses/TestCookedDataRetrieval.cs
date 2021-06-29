@@ -12,7 +12,7 @@ namespace Microsoft.Performance.SDK.Runtime.Tests.Extensibility.TestClasses
     {
         public T QueryOutput<T>(DataOutputPath identifier)
         {
-            return (T) QueryOutput(identifier);
+            return (T)QueryOutput(identifier);
         }
 
         public Func<DataOutputPath, object> queryOutputFunc;

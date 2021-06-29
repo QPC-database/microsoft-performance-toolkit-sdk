@@ -36,7 +36,7 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility
         public bool TryQueryOutput<TOut>(DataOutputPath dataOutputPath, out TOut result)
         {
             var success = TryQueryOutput(dataOutputPath, out var baseResult);
-            if(success)
+            if (success)
             {
                 result = (TOut)baseResult;
                 return true;
@@ -48,7 +48,7 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility
 
         public object QueryOutput(DataOutputPath dataOutputPath)
         {
-            if(this.availableSourceCookers.Contains(dataOutputPath.CookerPath))
+            if (this.availableSourceCookers.Contains(dataOutputPath.CookerPath))
             {
                 var cooker = this.sourceDataCookers.GetSourceDataCooker(dataOutputPath.CookerPath);
                 return cooker.QueryOutput(dataOutputPath);
@@ -63,14 +63,14 @@ namespace Microsoft.Performance.SDK.Runtime.Extensibility
         public bool TryQueryOutput(DataOutputPath dataOutputPath, out object result)
         {
             try
-            { 
-                if(this.availableSourceCookers.Contains(dataOutputPath.CookerPath))
+            {
+                if (this.availableSourceCookers.Contains(dataOutputPath.CookerPath))
                 {
                     var cooker = this.sourceDataCookers.GetSourceDataCooker(dataOutputPath.CookerPath);
                     return cooker.TryQueryOutput(dataOutputPath, out result);
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
             }
 

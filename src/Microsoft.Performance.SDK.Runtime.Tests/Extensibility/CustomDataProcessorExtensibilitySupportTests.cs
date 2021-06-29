@@ -8,7 +8,6 @@ using Microsoft.Performance.SDK.Extensibility;
 using Microsoft.Performance.SDK.Extensibility.DataCooking;
 using Microsoft.Performance.SDK.Processing;
 using Microsoft.Performance.SDK.Runtime.Extensibility.DataExtensions;
-using Microsoft.Performance.SDK.Runtime.Tests.Extensibility.DataTypes;
 using Microsoft.Performance.SDK.Runtime.Tests.Extensibility.TestClasses;
 using Microsoft.Performance.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

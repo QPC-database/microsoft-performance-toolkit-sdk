@@ -20,7 +20,7 @@ namespace Microsoft.Performance.SDK.Runtime.Tests
         {
         }
 
-        public TestCookedDataReflector() 
+        public TestCookedDataReflector()
             : base(DefaultCookerPath)
         {
         }
