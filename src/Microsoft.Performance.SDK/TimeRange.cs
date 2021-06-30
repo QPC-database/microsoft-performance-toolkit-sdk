@@ -359,7 +359,6 @@ namespace Microsoft.Performance.SDK
         /// <exception cref="System.FormatException">
         ///     <paramref name="s"/> is not parseable into a <see cref="TimeRange"/>.
         /// </exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "s")]
         public static TimeRange Parse(string s)
         {
             if (s == null)
@@ -389,7 +388,6 @@ namespace Microsoft.Performance.SDK
         ///     <c>true</c> if parsing was successful; <c>false</c>
         ///     otherwise.
         /// </returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "s")]
         public static bool TryParse(string s, out TimeRange result)
         {
             if (s == null)
