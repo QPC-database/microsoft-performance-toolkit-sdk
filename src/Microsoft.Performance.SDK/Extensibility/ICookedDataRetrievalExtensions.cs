@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Microsoft.Performance.SDK.Extensibility.DataCooking
+using Microsoft.Performance.SDK.Extensibility.DataCooking;
+
+namespace Microsoft.Performance.SDK.Extensibility
 {
     /// <summary>
     ///     Additional functionality for the <see cref="ICookedDataRetrieval"/> interface.

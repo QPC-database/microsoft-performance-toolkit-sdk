@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Performance.SDK.Extensibility;
-using Microsoft.Performance.SDK.Extensibility.DataCooking;
 using Microsoft.Performance.SDK.Processing;
 using Microsoft.Performance.SDK.Runtime.Extensibility.DataExtensions;
 using Microsoft.Performance.SDK.Runtime.Tests.Extensibility.TestClasses;
