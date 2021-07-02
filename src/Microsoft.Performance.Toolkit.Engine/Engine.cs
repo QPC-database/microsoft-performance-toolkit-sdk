@@ -876,9 +876,7 @@ namespace Microsoft.Performance.Toolkit.Engine
                     try
                     {
                         cds.Instance.SetApplicationEnvironment(instance.applicationEnvironment);
-
-                        // todo: CreateLogger func should be passed in from the EngineCreateInfo
-                        cds.Instance.SetLogger(Logger.Create(cds.Instance.GetType()));
+                        cds.Instance.SetLogger(createInfo.Logger ?? Logger.Create(cds.Instance.GetType()));
                     }
                     catch (Exception e)
                     {

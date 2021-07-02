@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using Microsoft.Performance.SDK.Processing;
 using Microsoft.Performance.SDK.Runtime;
 using Microsoft.Performance.SDK.Runtime.Discovery;
 
@@ -90,5 +91,10 @@ namespace Microsoft.Performance.Toolkit.Engine
         ///     The application name.
         /// </summary>
         public string ApplicationName { get; set; }
+
+        /// <summary>
+        ///     Provides a means of logging information.
+        /// </summary>
+        public ILogger Logger { get; set; }
     }
 }
