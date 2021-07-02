@@ -9,7 +9,6 @@ using Microsoft.Performance.SDK;
 using Microsoft.Performance.SDK.Extensibility;
 using Microsoft.Performance.SDK.Extensibility.DataCooking;
 using Microsoft.Performance.SDK.Processing;
-using Microsoft.Performance.SDK.Runtime;
 using Microsoft.Performance.SDK.Runtime.Extensibility.DataExtensions.Repository;
 using Microsoft.Performance.SDK.Runtime.Extensibility.DataExtensions.Tables;
 
@@ -18,7 +17,7 @@ namespace Microsoft.Performance.Toolkit.Engine
     /// <summary>
     ///     Represents the results of processing data using the <see cref="Engine"/>.
     /// </summary>
-    public sealed class RuntimeExecutionResults
+    public sealed class RuntimeExecutionResults : ICookedDataRetrieval
     {
         private readonly ICookedDataRetrieval cookedDataRetrieval;
         private readonly IDataExtensionRetrievalFactory retrievalFactory;
