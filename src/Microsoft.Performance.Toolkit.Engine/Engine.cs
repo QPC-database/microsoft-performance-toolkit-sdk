@@ -852,9 +852,17 @@ namespace Microsoft.Performance.Toolkit.Engine
 
                 instance.factory = repoTuple.Item1;
 
+                string runtimeName = !string.IsNullOrWhiteSpace(createInfo.RuntimeName)
+                    ? createInfo.RuntimeName
+                    : "Microsoft.Performance.Toolkit.Engine";
+
+                string applicationName = !string.IsNullOrWhiteSpace(createInfo.ApplicationName)
+                    ? createInfo.ApplicationName
+                    : string.Empty;
+
                 instance.applicationEnvironment = new ApplicationEnvironment(
-                    applicationName: string.Empty,
-                    runtimeName: "Microsoft.Performance.Toolkit.Engine",
+                    applicationName: applicationName,
+                    runtimeName: runtimeName,
                     new RuntimeTableSynchronizer(),
                     new TableConfigurationsSerializer(),
                     instance.extensionRoot,

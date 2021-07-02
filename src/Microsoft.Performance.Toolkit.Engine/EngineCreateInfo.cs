@@ -80,5 +80,15 @@ namespace Microsoft.Performance.Toolkit.Engine
         ///     behavior.
         /// </summary>
         public VersionChecker Versioning { get; internal set; }
+
+        /// <summary>
+        ///     The name of the runtime on which the application is built.
+        /// </summary>
+        public string RuntimeName { get; set; } = "Microsoft.Performance.Toolkit.Engine";
+
+        /// <summary>
+        ///     The application name.
+        /// </summary>
+        public string ApplicationName { get; set; }
     }
 }
