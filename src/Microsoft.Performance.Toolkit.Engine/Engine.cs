@@ -56,7 +56,7 @@ namespace Microsoft.Performance.Toolkit.Engine
         private DataExtensionFactory factory;
         private ExtensionRoot extensionRoot;
 
-        private string extensionDirectory;
+        private IReadOnlyCollection<string> extensionDirectories;
         private bool isProcessed;
         private IEnumerable<ErrorInfo> creationErrors;
 
@@ -104,18 +104,18 @@ namespace Microsoft.Performance.Toolkit.Engine
         /// <exception cref="ObjectDisposedException">
         ///     This instance is disposed.
         /// </exception>
-        public string ExtensionDirectory
+        public IReadOnlyCollection<string> ExtensionDirectories
         {
             get
             {
                 this.ThrowIfDisposed();
-                return this.extensionDirectory;
+                return this.extensionDirectories;
             }
             private set
             {
                 Debug.Assert(!this.isDisposed);
                 this.ThrowIfDisposed();
-                this.extensionDirectory = value;
+                this.extensionDirectories = value;
             }
         }
 
@@ -768,7 +768,7 @@ namespace Microsoft.Performance.Toolkit.Engine
                 
                 this.applicationEnvironment = null;
                 this.creationErrors = null;
-                this.extensionDirectory = null;
+                this.extensionDirectories = null;
                 this.extensionRoot = null;
                 this.factory = null;
                 this.loader = null;
@@ -815,9 +815,8 @@ namespace Microsoft.Performance.Toolkit.Engine
             Engine instance = null;
             try
             {
-
-                var extensionDirectory = createInfo.ExtensionDirectory;
-                Debug.Assert(extensionDirectory != null);
+                var extensionDirectories = createInfo.ExtensionDirectories.ToList().AsReadOnly();
+                Debug.Assert(extensionDirectories.Any());
 
                 var assemblyLoader = createInfo.AssemblyLoader ?? new AssemblyLoader();
 
@@ -831,7 +830,7 @@ namespace Microsoft.Performance.Toolkit.Engine
                     assemblyDiscovery,
                     repo);
 
-                assemblyDiscovery.ProcessAssemblies(extensionDirectory, out var discoveryError);
+                assemblyDiscovery.ProcessAssemblies(extensionDirectories, out var discoveryError);
 
                 repo.FinalizeDataExtensions();
 
@@ -841,7 +840,7 @@ namespace Microsoft.Performance.Toolkit.Engine
 
                 instance = new EngineImpl();
 
-                instance.ExtensionDirectory = extensionDirectory;
+                instance.ExtensionDirectories = extensionDirectories;
                 instance.CreationErrors = new[] { discoveryError, };
                 instance.customDataSourceReferences.AddRange(catalog.PlugIns);
                 instance.sourceDataCookers.AddRange(repoTuple.Item2.SourceDataCookers);

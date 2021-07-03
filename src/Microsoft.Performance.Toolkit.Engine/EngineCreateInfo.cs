@@ -2,7 +2,9 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using Microsoft.Performance.SDK;
 using Microsoft.Performance.SDK.Processing;
 using Microsoft.Performance.SDK.Runtime;
 using Microsoft.Performance.SDK.Runtime.Discovery;
@@ -15,16 +17,50 @@ namespace Microsoft.Performance.Toolkit.Engine
     /// </summary>
     public sealed class EngineCreateInfo
     {
-        private string extensionDirectory;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="EngineCreateInfo"/> 
         ///     class.
         /// </summary>
-        public EngineCreateInfo()
+        public EngineCreateInfo(string extensionDirectory = null)
+            : this(new string[] { extensionDirectory ?? Environment.CurrentDirectory })
         {
-            this.ExtensionDirectory = Environment.CurrentDirectory;
         }
+
+        public EngineCreateInfo(IEnumerable<string> extensionDirectories)
+        {
+            Guard.NotNull(extensionDirectories, nameof(extensionDirectories));
+
+            var directories = new List<string>();
+
+            foreach (var directory in extensionDirectories)
+            {
+                if (string.IsNullOrWhiteSpace(directory))
+                {
+                    throw new InvalidExtensionDirectoryException(directory);
+                }
+
+                DirectoryInfo dirInfo;
+                try
+                {
+                    dirInfo = new DirectoryInfo(directory);
+                }
+                catch (Exception e)
+                {
+                    throw new InvalidExtensionDirectoryException(directory, e);
+                }
+
+                if (!dirInfo.Exists)
+                {
+                    throw new InvalidExtensionDirectoryException(directory);
+                }
+
+                directories.Add(dirInfo.FullName);
+            }
+
+            this.ExtensionDirectories = directories.AsReadOnly();
+        }
+
+        public IEnumerable<string> ExtensionDirectories { get; }
 
         /// <summary>
         ///     Gets or sets the extension directory from
@@ -33,34 +69,34 @@ namespace Microsoft.Performance.Toolkit.Engine
         ///     directory. If you set it to <c>null</c>,
         ///     the current working directory will be used.
         /// </summary>
-        public string ExtensionDirectory
-        {
-            get
-            {
-                return this.extensionDirectory;
-            }
-            set
-            {
-                var candidateValue = value ?? Environment.CurrentDirectory;
+        //public string ExtensionDirectory
+        //{
+        //    get
+        //    {
+        //        return this.extensionDirectory;
+        //    }
+        //    set
+        //    {
+        //        var candidateValue = value ?? Environment.CurrentDirectory;
 
-                DirectoryInfo dirInfo;
-                try
-                {
-                    dirInfo = new DirectoryInfo(candidateValue);
-                }
-                catch (Exception e)
-                {
-                    throw new InvalidExtensionDirectoryException(candidateValue, e);
-                }
+        //        DirectoryInfo dirInfo;
+        //        try
+        //        {
+        //            dirInfo = new DirectoryInfo(candidateValue);
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            throw new InvalidExtensionDirectoryException(candidateValue, e);
+        //        }
 
-                if (!dirInfo.Exists)
-                {
-                    throw new InvalidExtensionDirectoryException(value);
-                }
+        //        if (!dirInfo.Exists)
+        //        {
+        //            throw new InvalidExtensionDirectoryException(value);
+        //        }
 
-                this.extensionDirectory = dirInfo.FullName;
-            }
-        }
+        //        this.extensionDirectory = dirInfo.FullName;
+        //    }
+        //}
 
         /// <summary>
         ///     Gets or sets the <see cref="IAssemblyLoader"/> to
@@ -72,7 +108,7 @@ namespace Microsoft.Performance.Toolkit.Engine
         ///     this property. Changing the loading behavior is for
         ///     advanced scenarios.
         /// </summary>
-        public IAssemblyLoader AssemblyLoader{ get; set;  }
+        public IAssemblyLoader AssemblyLoader { get; set; }
 
         /// <summary>
         ///     Gets the <see cref="VersionChecker"/> to

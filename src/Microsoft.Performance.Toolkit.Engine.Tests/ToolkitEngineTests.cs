@@ -89,7 +89,7 @@ namespace Microsoft.Performance.Toolkit.Engine.Tests
         [IntegrationTest]
         public void Create_NoParameters_UsesCurrentDirectory()
         {
-            Assert.AreEqual(Environment.CurrentDirectory, this.Sut.ExtensionDirectory);
+            Assert.AreEqual(Environment.CurrentDirectory, this.Sut.ExtensionDirectories.First());
         }
 
         [TestMethod]
@@ -161,9 +161,8 @@ namespace Microsoft.Performance.Toolkit.Engine.Tests
                 // we loaded from an assembly in a different folder, so the type is 'technically' different, so do a name
                 // compare this time.
                 engine = Engine.Create(
-                    new EngineCreateInfo
+                    new EngineCreateInfo(tempDir)
                     {
-                        ExtensionDirectory = tempDir,
                         Versioning = new FakeVersionChecker(),
                     });
                 Assert.IsTrue(engine.CustomDataSources.Any());
@@ -281,9 +280,8 @@ namespace Microsoft.Performance.Toolkit.Engine.Tests
             Directory.CreateDirectory(tempDir);
             CopyAssemblyContainingType(typeof(Source123DataSource), tempDir);
             var sut = Engine.Create(
-                new EngineCreateInfo
+                new EngineCreateInfo(tempDir)
                 {
-                    ExtensionDirectory = tempDir,
                     Versioning = new FakeVersionChecker(),
                 });
 
@@ -333,9 +331,8 @@ namespace Microsoft.Performance.Toolkit.Engine.Tests
             Directory.CreateDirectory(tempDir);
             CopyAssemblyContainingType(typeof(Source123DataSource), tempDir);
             using (var sut = Engine.Create(
-                new EngineCreateInfo
+                new EngineCreateInfo(tempDir)
                 {
-                    ExtensionDirectory = tempDir,
                     Versioning = new FakeVersionChecker(),
                 }))
             {
@@ -1397,7 +1394,7 @@ namespace Microsoft.Performance.Toolkit.Engine.Tests
             Assert.ThrowsException<ObjectDisposedException>(() => this.Sut.CreationErrors);
             Assert.ThrowsException<ObjectDisposedException>(() => this.Sut.CustomDataSources);
             Assert.ThrowsException<ObjectDisposedException>(() => this.Sut.DataSourcesToProcess);
-            Assert.ThrowsException<ObjectDisposedException>(() => this.Sut.ExtensionDirectory);
+            Assert.ThrowsException<ObjectDisposedException>(() => this.Sut.ExtensionDirectories);
             Assert.ThrowsException<ObjectDisposedException>(() => this.Sut.FreeDataSourcesToProcess);
             Assert.ThrowsException<ObjectDisposedException>(() => this.Sut.IsProcessed);
             Assert.ThrowsException<ObjectDisposedException>(() => this.Sut.SourceDataCookers);
