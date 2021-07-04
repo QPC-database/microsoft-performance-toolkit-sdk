@@ -1213,6 +1213,8 @@ namespace Microsoft.Performance.Toolkit.Engine
                 Action onChangeComplete,
                 bool requestInitialFilterReevaluation = false)
             {
+                onReadyForChange?.Invoke();
+                onChangeComplete?.Invoke();
             }
 
             public void SubmitColumnChangeRequest(
@@ -1221,6 +1223,8 @@ namespace Microsoft.Performance.Toolkit.Engine
                 Action onChangeComplete,
                 bool requestInitialFilterReevaluation = false)
             {
+                onReadyForChange?.Invoke();
+                onChangeComplete?.Invoke();
             }
         }
 
